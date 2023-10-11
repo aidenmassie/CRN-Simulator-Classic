@@ -6,81 +6,76 @@ def CRNCreator():
     n = crn.ChemicalReactionNetwork()
 
     running = True
-
     while running:
         print('What do you want to do?\n(A)dd new species or rules.\n(D)elete species or rules.\n(V)iew the CRN.\n(R)un a configuration.\n(E)xit the creator.')
-
         option = input('>')
 
         if option == 'A' or option == 'a':
-            print('Add a rule or species?\n(S)pecies.\n(R)ule.\n(E)xit.')
+            adding = True
+            while adding:
+                print('Add a rule or species?\n(S)pecies.\n(R)ule.\n(E)xit.')
+                option = input('>')
 
-            option = input('>')
+                if option == 'S' or option == 's':
+                    print('Add as many species as you like. Use spaces to distinguish each species.')
+                    species = input('>').split()
 
-            if option == 'S' or option == 's':
-                print('Add as many species as you like. Make sure each unique one is seperated with spaces.')
+                    n.AddSpecies(species)
+                elif option == 'R' or option == 'r':
+                    print('Add the reactants of this rule. Use spaces to distinguish each reactant.')
+                    reactants = input('>').split()
 
-                species = input('>').split()
+                    print('Add the products of this rule. Use spaces to distinguish each product.')
+                    products = input('>').split()
 
-                n.AddSpecies(species)
-            elif option == 'R' or option == 'r':
-                print('Add the reactants of this rule.')
-
-                reactants = input('>').split()
-
-                print('Add the products of this rule.')
-
-                products = input('>').split()
-
-                n.AddRule([reactants, products])
-            elif option == 'E' or option == 'e':
-                continue
-            else:
-                print('Input not recognized!')
+                    n.AddRule([reactants, products])
+                elif option == 'E' or option == 'e':
+                    adding = False
+                else:
+                    print('Input not recognized!')
 
         elif option == 'D' or option == 'd':
-            print('Delete a rule or species?\n(S)pecies.\n(R)ule.\n(E)xit.')
+            deleting = True
+            while deleting:
+                print('Delete a rule or species?\n(S)pecies.\n(R)ule.\n(E)xit.')
+                option = input('>')
 
-            option = input('>')
+                if option == 'S' or option == 's':
+                    print('Delete as many species as you like. Use spaces to distinguish each species.')
+                    species = input('>').split()
 
-            if option == 'S' or option == 's':
-                print('Delete as many species as you like. Make sure each unique one is seperated with spaces.')
+                    n.DeleteSpecies(species)
+                elif option == 'R' or option == 'r':
+                    print('Add the reactants of the rule to delete. Use spaces to distinguish each reactant.')
+                    reactants = input('>').split()
 
-                species = input('>').split()
+                    print('Add the products of the rule to delete. Use spaces to distinguish each product.')
+                    products = input('>').split()
 
-                n.DeleteSpecies(species)
-            elif option == 'R' or option == 'r':
-                print('Add the reactants of the rule to delete.')
-
-                reactants = input('>').split()
-
-                print('Add the products of the rule to delete.')
-
-                products = input('>').split()
-
-                n.DeleteRule([reactants, products])
-            elif option == 'E' or option == 'e':
-                continue
-            else:
-                print('Input not recognized!')
+                    n.DeleteRule([reactants, products])
+                elif option == 'E' or option == 'e':
+                    deleting = False
+                else:
+                    print('Input not recognized!')
         elif option == 'V' or option == 'v':
-            print('The species of the CRN are: ')
 
             species_list = n.GetSpecies()
 
-            if species_list == []:
+            if not species_list:
                 print('No species listed!')
             else:
+                print('The species of the CRN are: ')
+
                 for count, species in enumerate(species_list):
                     print('{}. {}'.format(count + 1, species))
 
-            print('The rules of the CRN are: ')
-
             rules_list = n.GetRuleset()
 
-            if rules_list == []:
+            if not rules_list:
                 print('No rules listed!')
             else:
+                print('The rules of the CRN are: ')
+
                 for count, rule in enumerate(rules_list):
                     print('{}. {}'.format(count + 1, rule))
         elif option == 'R' or option == 'r':
@@ -115,10 +110,8 @@ if __name__ == '__main__':
     print('Welcome to the CRN Simulator!\n')
 
     running = True
-
     while running:
         print('What do you want to do?\n(C)reate a new CRN.\n(E)xit the simulator.')
-
         option = input('>')
 
         if option == 'C' or option == 'c':
