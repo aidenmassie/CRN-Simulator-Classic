@@ -186,7 +186,7 @@ def ConfigRunner(crn):
         print('Want to re-run with a new configuration? Type in (Y)es if so.')
         option = input('>')
 
-        if option != 'Y' or option != 'y':
+        if option != 'Y' and option != 'y':
             return
 
 
